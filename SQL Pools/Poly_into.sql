@@ -1,3 +1,4 @@
+
 if exists(select * from sys.procedures p 
 inner join sys.schemas s on p.schema_id = s.schema_id
 where p.name like 'poly_into' and s.name = 'dbo')
@@ -14,10 +15,10 @@ CREATE PROC [dbo].[poly_into]
 @datafolder [varchar](400), -- Path to the folders or file we want to import 
 @fileformat [varchar](400), -- https://docs.microsoft.com/en-us/sql/t-sql/statements/create-external-file-format-transact-sql?view=azure-sqldw-latest
 @loaddata [int], -- Create External table / import the data (todo: just create external table)
-@truncate [int]  -- Truncate the table we want to load into 
--- todo: strict data types -- use data types from table or just use varchar(4000)
--- todo: clean up -- remove the external table after the sucessful execution
--- todo: schema where the external table will go
+@truncate [int],  -- Truncate the table we want to load into 
+@strictDataTypes [int],-- strict data types -- use data types from table or just use varchar(4000)
+@removeExternalTable [int], -- Clean up remove the external table after the sucessful execution
+@externalTableSchema [varchar](200) --  schema where the external table will go
 AS
 BEGIN
     SET NOCOUNT ON
@@ -71,6 +72,7 @@ set @Rundate = getdate()
 		@colaname VARCHAR(max),
 		@colanamereplace VARCHAR(max),
 		@thiscol VARCHAR(max),
+		@actualcol VARCHAR(max),
 		@indent int
 
 SET @varColList = '' 
@@ -79,7 +81,7 @@ SET @varFileColListwithDateTypes = ' '
 SET @varDestColList = ' '
 SET @colaname = ''
 SET @colanamereplace = ''
-
+set @actualcol = ''
 
 set @varExtTableName= '"ext_' + @tbname + '"'
 
@@ -92,25 +94,45 @@ CREATE TABLE #tempcolumnnames
   ( 
      intid          INT, 
      colname VARCHAR(512) ,
-	 colaname VARCHAR(512) 
+	 colaname VARCHAR(512) ,
+	 actualcol VARCHAR(512)
   ) 
 
 
 BEGIN
 
 	INSERT INTO #tempcolumnnames 
-		   select c.column_id,  c.NAME + ' varchar(4000)' , c.NAME as colaname
-		   --+ convert(varchar(50),c.max_length) + ')' as colname 
-		--   select c.column_id,  c.NAME + ' ' + ty.name + 
-		   --case 
-		  -- varchar
-		 --  '(' + convert(varchar(50),c.max_length) + ')'
-		   from sys.columns c inner join sys.tables t on t.object_id = c.object_id 
-		   inner join sys.schemas s on s.schema_id = t.schema_id 
-		   inner join sys.types ty on ty.user_type_id = c.user_type_id
-	   
-		   where t.name =@tbname
+		   select  c.column_id,  c.NAME + ' varchar(4000)' , c.NAME as colaname, '[' + c.NAME + '] ' +
+                CASE WHEN c.system_type_id != c.user_type_id   
+                    THEN '[' + SCHEMA_NAME(tp.[schema_id]) + '].[' + tp.name + ']'   
+                    ELSE '[' + UPPER(tp.name) + ']'   
+                END  +   
+                CASE   
+                    WHEN tp.name IN ('varchar', 'char', 'varbinary', 'binary')  
+                        THEN '(' + CASE WHEN c.max_length = -1   
+                                        THEN 'MAX'   
+                                        ELSE CAST(c.max_length AS VARCHAR(5))   
+                                    END + ')'  
+                    WHEN tp.name IN ('nvarchar', 'nchar')  
+                        THEN '(' + CASE WHEN c.max_length = -1   
+                                        THEN 'MAX'   
+                                        ELSE CAST(c.max_length / 2 AS VARCHAR(5))   
+                                    END + ')'  
+                    WHEN tp.name IN ('datetime2', 'time2', 'datetimeoffset')   
+                        THEN '(' + CAST(c.scale AS VARCHAR(5)) + ')'  
+                    WHEN tp.name = 'decimal'  
+                        THEN '(' + CAST(c.[precision] AS VARCHAR(5)) + ',' + CAST(c.scale AS VARCHAR(5)) + ')'  
+                    ELSE ''  
+                END as columnss
+               
+    FROM sys.columns c WITH(NOLOCK)  
+    JOIN sys.types tp WITH(NOLOCK) ON c.user_type_id = tp.user_type_id  
+	inner join sys.tables t on t.object_id = c.object_id 
+	  inner join sys.schemas s on s.schema_id = t.schema_id 
+			   where t.name =@tbname
 		   and s.name = @schema 
+ 
+
 
 	select * from #tempcolumnnames 
 	SET @intProcessCount = 1 
@@ -137,7 +159,11 @@ set @colaname = @colaname + ',
 							   FROM   #tempcolumnnames 
 							   WHERE  intid = @intProcessCount) 
 
-
+set @actualcol = @actualcol + ',
+		  ' 
+							+ (SELECT actualcol
+							   FROM   #tempcolumnnames 
+							   WHERE  intid = @intProcessCount) 
 
 SET @colanamereplace= @colanamereplace + ',  
   case ' + @thiscol + '
@@ -147,23 +173,19 @@ SET @colanamereplace= @colanamereplace + ',
 		  SET @intProcessCount +=1 
 	  END 
 
-/*	if len(@datefolder) > 0 
-	begin
-	--set @folderpath = '/SAP/' + @tbname +'/' + @datefolder
-	set @folderpath  = @datafolder
-	end
-	else
-	begin
-	--set @folderpath = '/SAP/' + @tbname +'/'
-
-	end
-	*/
 	set @folderpath  = @datafolder
 
 	set @varFileColList = substring( @varFileColList,2, len(@varFileColList))
 	set @colaname = substring( @colaname,2, len(@colaname))
 	set @colanamereplace =  substring( @colanamereplace,2, len(@colanamereplace))
+	set @actualcol =  substring( @actualcol,2, len(@actualcol))
 
+	print @actualcol;
+
+	if @strictDataTypes = 1
+	BEGIN
+		set @varFileColList = @actualcol;
+	END
 
 		set @varSQL = '
 			 if exists(select * from  sys.tables t 
@@ -176,7 +198,6 @@ SET @colanamereplace= @colanamereplace + ',
 			begin
 			print ''y''
 		   end
-
 
 		CREATE EXTERNAL TABLE [ext].[ext_' + @tbname + ']
 	( ' + @varFileColList + ' )
@@ -191,7 +212,7 @@ SET @colanamereplace= @colanamereplace + ',
 	
 
 if @loaddata= 1
- PRINT ''
+ PRINT 'Create External table'
 	print @varSQL
 	EXEC(@varSQL)
 END
@@ -248,58 +269,38 @@ END
 
 
 	 print @varSQL
+
+	 print '-----'
 	 EXEC(@varSQL)
 
 set @rundate = getdate()
 
 declare @ssql varchar(4000)
+set @ssql= ''
 
-set @ssql  ='
-declare @rc int;
+if @removeExternalTable = 1 
+BEGIN
+		print 'Removing External table'
+		
+		set @ssql = '
+			 if exists(select * from  sys.tables t 
+		   inner join sys.schemas s on s.schema_id = t.schema_id where t.name =''ext_'+ @tbname + '''
+		   and s.name = ''ext'')
+		   begin
+			 drop external table ext.ext_'+ @tbname + '
+		   end
+		   else
+			begin
+			print ''y''
+		   end'
 
-select @rc = count(*) from raw.[' + @tbname + ']; 
+		   print @ssql
 
-INSERT INTO [dbo].[logging]
-           ([loggingdate]
-           ,[eventname]
-           ,[eventdesc]       
-           ,[loaddate]
-           ,[recordcount]
-           ,[SQL]
-           ,[tblname])
-     VALUES
-           (''' + convert(varchar,@rundate) + ''',
-		    ''' +@procname + ''',
-			''end'',
-			''' + convert(varchar,@rundate) + '''
-			,@rc,
-			''' + @varSQL + ''',
-			''' + @tbname + ''')'
+          EXEC(@ssql)
+END
 
---print @ssql
 
---EXEC(@ssql)
 end
 
 
-/*
-CREATE EXTERNAL TABLE ' + @varExtTableName + ' (
-    ' + Stuff(@varFileColListwithDateTypes, 1, 2, '')  + '
-) WITH (
-    LOCATION = ''in/'',
-    DATA_SOURCE = HStorage,
-    FILE_FORMAT = CSVFileFormat
-);
-INSERT INTO "dbo"."' + @tbname + '" (
-    ' + Stuff(@varDestColList, 1, 2, '')  + '
-)
-SELECT
-    "' + Stuff(@varFileColList, 1, 2, '')  + '
-FROM ' + @varExtTableName + ';
-DROP EXTERNAL TABLE ' + @varExtTableName + ';'
-
-select @varSQL
-PRINT @varSQL
-*/
---EXEC(@varSQL)
 end
