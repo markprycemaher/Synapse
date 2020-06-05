@@ -2,13 +2,21 @@
 
 These are just useful scripts.
 
-DropTableIfExists.sql - Does what it says on the tin.
+General
+-- DropTableIfExists.sql - Drop table is it already exists
 
- 
-Poly_into.sql - Script to make using Polybase a little bit easier.
+Monitoring
+-- Set of scripts to collect DMV information
 
+Paritioning 
+-- two scripts for partitioning, partiting tables and swaping partitions
 
-monitor_load.sql - Use this to monitor how long it takes to import a file using polybase.
+polybase
+-- Scripts to help with polybase
+
+stats
+-- Script to update exisiting statistics
+
 
 
 

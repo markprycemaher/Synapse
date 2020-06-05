@@ -1,0 +1,26 @@
+// all events over a period of time
+AzureDiagnostics 
+ | where (Category  == 'SqlRequests' or Category  == 'ExecRequests'     or Category  == 'RequestSteps'            or Category  == 'DmsWorkers' ) 
+ | order by TimeGenerated desc 
+
+AzureDiagnostics
+| where Category == "ExecRequests" 
+    //and Label_s != "health_checker" 
+    and isnotempty(ExplainOutput_s)
+| extend req = parse_xml(ExplainOutput_s) 
+| extend fullquerytext = req["dsql_query"]["sql"]
+| project fullquerytext
+
+
+// Common categories in Azure diagnostics 
+// Count the number of logs reported per category. 
+AzureDiagnostics 
+| summarize countLogsPerCategory=count() by Category  
+| sort by countLogsPerCategory
+
+AzureDiagnostics
+| where Category == 'SQLSecurityAuditEvents'
+| where ResourceId == '/SUBSCRIPTIONS/5D0EA299-7DFF-4878-A18E-10BFC0DF9999/RESOURCEGROUPS/DBCLUSTER/PROVIDERS/MICROSOFT.SQL/SERVERS/**SERVERNAME**/DATABASES/**DBNAME**'
+| project event_time_t, statement_s, succeeded_s, affected_rows_d, server_principal_name_s, client_ip_s, application_name_s, additional_information_s, data_sensitivity_information_s
+| order by event_time_t desc
+| take 100
