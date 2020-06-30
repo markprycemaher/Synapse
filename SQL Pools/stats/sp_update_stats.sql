@@ -1,4 +1,6 @@
-CREATE PROCEDURE    [microsoft].[sp_update_stats]
+--exec   [microsoft].[sp_upd_stats] 1,100,4
+
+CREATE PROCEDURE    [microsoft].[sp_upd_stats]
 (   @update_type    tinyint -- 1 default 2 fullscan 3 sample 4 resample
    ,@sample_pct     tinyint
    ,@user_created     tinyint -- 1
@@ -58,13 +60,14 @@ JOIN    sys.columns            AS co    ON    sc.[column_id]        = co.[column
 JOIN    sys.tables            AS tb    ON    co.[object_id]        = tb.[object_id]
 JOIN    sys.schemas            AS sm    ON    tb.[schema_id]        = sm.[schema_id]
 WHERE    1=1 and STATS_DATE(st.[object_id],st.[stats_id])   is not null
-AND        st.[user_created]   = @user_created 
+AND        (st.[user_created]   = @user_created or @user_created = 4 )
 GROUP BY
         sm.[name]
 ,        tb.[name]
 ,        st.[name]
 ,        st.[filter_definition]
 ,        st.[has_filter]
+, STATS_DATE(st.[object_id],st.[stats_id])
 ) t1 
 
 ;
