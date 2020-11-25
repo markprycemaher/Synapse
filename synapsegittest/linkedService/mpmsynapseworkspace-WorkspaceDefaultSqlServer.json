@@ -1,0 +1,19 @@
+{
+	"name": "mpmsynapseworkspace-WorkspaceDefaultSqlServer",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"type": "AzureSqlDW",
+		"typeProperties": {
+			"connectionString": {
+				"type": "SecureString",
+				"value": "**********"
+			}
+		},
+		"parameters": {
+			"DBName": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
