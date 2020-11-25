@@ -1,0 +1,16 @@
+{
+	"name": "SQL - on -demand",
+	"properties": {
+		"content": {
+			"query": "SELECT\n    TOP 100 *\nFROM  \n    OPENROWSET(\n        BULK 'https://csatraining.dfs.core.windows.net/csafs/loading/FactInternetSales/text_single_file/saveexample.parquet/part-00000-8d7da51f-98b5-4704-b0f1-c59c44314ed6-c000.snappy.parquet',\n        FORMAT='PARQUET'\n    ) AS nyc;\n\n\nSELECT *\nFROM  \n    OPENROWSET(\n        BULK 'https://csatraining.dfs.core.windows.net/csafs/loading/FactInternetSales/parquet/*',\n        FORMAT='PARQUET'\n    ) AS nyc;\n\n\nCREATE view view_over_files as\nSELECT *\nFROM  \n    OPENROWSET(\n        BULK 'https://csatraining.dfs.core.windows.net/csafs/loading/FactInternetSales/parquet/*',\n        FORMAT='PARQUET'\n    ) AS nyc;\n\n\nselect * from view_over_files;\n\nselect count(*) from view_over_files;\n\n\nSELECT\n    sum(salesamount),customerkey\nFROM  \n    OPENROWSET(\n        BULK 'https://csatraining.dfs.core.windows.net/csafs/loading/FactInternetSales/parquet/*',\n        FORMAT='PARQUET'\n    ) AS nyc\nGROUP BY customerkey\n\n\nCreate view sales_by_customer\nas\nSELECT\n    sum(salesamount) as totalSales,customerkey\nFROM  \n    OPENROWSET(\n        BULK 'https://csatraining.dfs.core.windows.net/csafs/loading/FactInternetSales/parquet/*',\n        FORMAT='PARQUET'\n    ) AS nyc\nGROUP BY customerkey\n\n\n\nselect *\nfrom view_over_files a inner join sales_by_customer b on a.customerkey = b.customerkey\n\n\n\n\n\n    ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "myondemanddb",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

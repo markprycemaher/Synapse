@@ -1,0 +1,16 @@
+{
+	"name": "qod-filename-filepath",
+	"properties": {
+		"content": {
+			"query": "\tSELECT\n     r.filename() AS [filename]\n     ,r.filepath() AS [filepath]\n     ,r.filepath(1) as [filepath1]\n\t ,r.filepath(2) as [filepath2]\n\t,COUNT_BIG(*) AS [rows]\nFROM\n    OPENROWSET(\n        BULK 'https://csatraining.dfs.core.windows.net/csafs/loading/FactInternetSales/parquet2/*-*-*-*-*-*-*.snappy.parquet',\n        FORMAT='PARQUET'\n    ) AS [r]\n\twhere r.filepath(2) = '92a131c9'\n    group by r.filename(), r.filepath(), r.filepath(1),r.filepath(2);\n\n    declare @ssdql varchar(50);\n    set @ssdql\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "master",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

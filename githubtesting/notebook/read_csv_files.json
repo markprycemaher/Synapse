@@ -1,0 +1,58 @@
+{
+	"name": "read_csv_files",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkpool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 1
+		},
+		"metadata": {
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/5d0ea299-7dff-4878-a18e-10bfc0df8d8e/resourceGroups/mpm/providers/Microsoft.Synapse/workspaces/mpmsynapseworkspace/bigDataPools/sparkpool",
+				"name": "sparkpool",
+				"type": "Spark",
+				"endpoint": "https://mpmsynapseworkspace.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Execute pySpark\n",
+					"below code takes about** 2 1/2 minutes** to run (from code) and **10 seconds **from hot - (Time difference is the time to start the spark cluster)\n",
+					"\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"%%pyspark\r\n",
+					"data_path = spark.read.load('abfss://csafs@csatraining.dfs.core.windows.net/loading/Weather/csv/QID14341_20200127_192210_3.txt', format=\"text\")\r\n",
+					"data_path.show(100)"
+				],
+				"attachments": null,
+				"execution_count": 4
+			}
+		]
+	}
+}

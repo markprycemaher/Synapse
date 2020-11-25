@@ -1,0 +1,16 @@
+{
+	"name": "SQL script 29",
+	"properties": {
+		"content": {
+			"query": "SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://csatraining.dfs.core.windows.net/csafs/loading/FactInternetSales/parquet/QID17000_20191015_114456_12.parq',\n        FORMAT='PARQUET'\n    ) AS [result]\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "leeds",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

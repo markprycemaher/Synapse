@@ -1,0 +1,16 @@
+{
+	"name": "SQL script 33",
+	"properties": {
+		"content": {
+			"query": "exec test2;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "london",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

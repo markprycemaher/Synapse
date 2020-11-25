@@ -1,0 +1,46 @@
+{
+	"name": "Notebook 15",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"language_info": {
+				"name": "python"
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"# Load a streaming Spark DataFrame from a Cosmos DB container\n",
+					"# To select a preferred list of regions in a multi-region Cosmos DB account, add .option(\"spark.cosmos.preferredRegions\", \"<Region1>,<Region2>\")\n",
+					"\n",
+					"dfStream = spark.readStream\\\n",
+					"    .format(\"cosmos.oltp\")\\\n",
+					"    .option(\"spark.synapse.linkedService\", \"CosmosDb1\")\\\n",
+					"    .option(\"spark.cosmos.container\", \"FamilyContainer\")\\\n",
+					"    .option(\"spark.cosmos.changeFeed.readEnabled\", \"true\")\\\n",
+					"    .option(\"spark.cosmos.changeFeed.startFromTheBeginning\", \"true\")\\\n",
+					"    .option(\"spark.cosmos.changeFeed.checkpointLocation\", \"/localReadCheckpointFolder\")\\\n",
+					"    .option(\"spark.cosmos.changeFeed.queryName\", \"streamQuery\")\\\n",
+					"    .load()"
+				],
+				"attachments": null,
+				"execution_count": null
+			}
+		]
+	}
+}

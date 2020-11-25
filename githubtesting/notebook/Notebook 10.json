@@ -1,0 +1,62 @@
+{
+	"name": "Notebook 10",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkpool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "scala"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/5d0ea299-7dff-4878-a18e-10bfc0df8d8e/resourceGroups/mpm/providers/Microsoft.Synapse/workspaces/mpmsynapseworkspace/bigDataPools/sparkpool",
+				"name": "sparkpool",
+				"type": "Spark",
+				"endpoint": "https://mpmsynapseworkspace.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"val df_olap = spark.read.format(\"cosmos.olap\").\r\n",
+					"    option(\"spark.synapse.linkedService\", \"CosmosDb1\").\r\n",
+					"    option(\"spark.cosmos.container\", \"FamilyContainer\").\r\n",
+					"    load()\r\n",
+					"\r\n",
+					"\r\n",
+					"df_olap.show(10);"
+				],
+				"attachments": null,
+				"execution_count": 4
+			}
+		]
+	}
+}

@@ -1,0 +1,84 @@
+{
+	"name": "create-spark-use-sql",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "sparkpool",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 1
+		},
+		"metadata": {
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/5d0ea299-7dff-4878-a18e-10bfc0df8d8e/resourceGroups/mpm/providers/Microsoft.Synapse/workspaces/mpmsynapseworkspace/bigDataPools/sparkpool",
+				"name": "sparkpool",
+				"type": "Spark",
+				"endpoint": "https://mpmsynapseworkspace.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/sparkpool",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 3,
+				"cores": 4,
+				"memory": 28
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"new_rows = [('CA',22, 45000),(\"WA\",35,65000) ,(\"WA\",50,85000)]\n",
+					"demo_df = spark.createDataFrame(new_rows, ['state', 'age', 'salary'])\n",
+					"demo_df.show()\n",
+					""
+				],
+				"execution_count": 3
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"demo_df.createOrReplaceTempView('demo_df')\n",
+					"demo_df.write.csv('demo_df', mode='overwrite')\n",
+					"demo_df.write.parquet('abfss://default@<<storageaaccountname>>storage.dfs.core.windows.net/demo_df', mode='overwrite')"
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"%%sql\n",
+					"SHOW TABLES"
+				],
+				"execution_count": 5
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"display(spark.sql('SELECT * FROM demo_df'))"
+				],
+				"execution_count": 6
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"%%sql\n",
+					"SELECT \n",
+					"    *\n",
+					"FROM\n",
+					"    demo_df"
+				],
+				"execution_count": 7
+			}
+		]
+	}
+}

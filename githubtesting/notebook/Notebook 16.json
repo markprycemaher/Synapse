@@ -1,0 +1,48 @@
+{
+	"name": "Notebook 16",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"language_info": {
+				"name": "python"
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"# Write a streaming Spark DataFrame to a Cosmos DB container\n",
+					"# To select a preferred list of regions in a multi-region Cosmos DB account, add .option(\"spark.cosmos.preferredRegions\", \"<Region1>,<Region2>\")\n",
+					"\n",
+					"streamQuery = dfStream\\\n",
+					"    .writeStream\\\n",
+					"    .format(\"cosmos.oltp\")\\\n",
+					"    .outputMode(\"append\")\\\n",
+					"    .option(\"checkpointLocation\", \"/localWriteCheckpointFolder\")\\\n",
+					"    .option(\"spark.synapse.linkedService\", \"CosmosDb1\")\\\n",
+					"    .option(\"spark.cosmos.container\", \"FamilyContainer\")\\\n",
+					"    .option(\"spark.cosmos.connection.mode\", \"gateway\")\\\n",
+					"    .start()\n",
+					"\n",
+					"streamQuery.awaitTermination()"
+				],
+				"attachments": null,
+				"execution_count": null
+			}
+		]
+	}
+}

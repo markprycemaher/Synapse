@@ -1,0 +1,29 @@
+{
+	"name": "Pipeline 7",
+	"properties": {
+		"activities": [
+			{
+				"name": "AzureMLNotebook",
+				"type": "SynapseNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebook": {
+						"referenceName": "AzureMLNotebook",
+						"type": "NotebookReference"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2020-07-16T10:54:55Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

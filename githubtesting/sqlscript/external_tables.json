@@ -1,0 +1,16 @@
+{
+	"name": "external_tables",
+	"properties": {
+		"content": {
+			"query": "-- dwu100c \n-- drop table [staging].[STG_text_load]\n-- dwu100c -  5 mins 27 seconds\n-- dwu1000c - 44 seconds seconds\nCREATE TABLE [staging].[STG_text_load]\nWITH\n(\nDISTRIBUTION = ROUND_ROBIN,\nHEAP\n)\nAS \nSELECT * FROM [staging].[FactInternetSales_text] option(label = 'STG_text_load')\n\n/* drop  TABLE [staging].[#temp_STG_text_load]\n-- DWU100c - 5 min 51 secs\n-- DWU1000c - 49 seconds\nCREATE TABLE [staging].[#temp_STG_text_load]\nWITH\n(\nDISTRIBUTION = ROUND_ROBIN,\nHEAP\n)\nAS \nSELECT * FROM [staging].[FactInternetSales_text] option(label = 'STG_text_load_temp')\n*/\n\n-- drop TABLE [staging].[STG_parquet_load]\n-- DWU1000c - 81 seconds\nCREATE TABLE [staging].[STG_parquet_load]\nWITH\n(\nDISTRIBUTION = ROUND_ROBIN,\nHEAP\n)\nAS\nSELECT *  \nFROM [staging].[FactInternetSales_parquet]\nOPTION (label = 'STG_parquet_load')\nGO\n\n-- drop table [staging].[STG_compressed_text_load]\n-- 5 min 19\nCREATE TABLE [staging].[STG_compressed_text_load]\nWITH\n(\nDISTRIBUTION = ROUND_ROBIN,\nHEAP\n)\nAS\nSELECT *  \nFROM [staging].[FactInternetSales_compressed_text]\nOPTION (label = 'STG_compressed_load')\n\nCREATE TABLE [staging].[STG_CompressedText_single_file]\nWITH \n(\nDISTRIBUTION = ROUND_ROBIN, HEAP\n)\nAS \nSELECT *\nFROM [staging].[FactInternetSales_single_compressed_text] \nOPTION(label = 'STG_single_compressed_load')\nGO\n\nCREATE TABLE [staging].[STG_Hash_ProductKey]\nWITH\n(\nDISTRIBUTION = HASH(ProductKey),\nHEAP\n)\nAS\nSELECT *  \nFROM [staging].[FactInternetSales_single_compressed_text] \nOPTION (label = 'STG_Hash_ProductKey')\n\nselect  ProductKey,count(*) from [staging].[STG_Hash_ProductKey] group by ProductKey\norder by count(*) desc;\n\nselect min(c),max(c) from (\nselect  ProductKey,count(*) as c from [staging].[STG_Hash_ProductKey] group by ProductKey ) d;\n-- type your sql script here, we now have intellisense",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "mpmsqlpool",
+				"type": "SqlCompute"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}

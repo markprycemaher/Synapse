@@ -1,0 +1,16 @@
+{
+	"name": "cosmos query",
+	"properties": {
+		"content": {
+			"query": "\nSELECT  *\nFROM OPENROWSET( \n       'CosmosDB',\n       'account=synapselink2;database=FamilyDatabase;region=westus2;key=bHuo9KFTpUOW86jF3LtJjfxPHXF8tK7p5vBoVpqO9CC21sKoKCSPjRxwqsD44bFMEgHNysXbqqVVUVVu15Cq1w==',\n       FamilyContainer)   WITH (  id varchar(1000) '$.id',  lastname varchar(1000) '$.LastName'  ) as documents\n\n\n\nselect * from cosmosdata_family\n\nSELECT *\nFROM OPENROWSET( \n       'CosmosDB',\n       'account=synapselink2;database=FamilyDatabase;region=westus2;key=bHuo9KFTpUOW86jF3LtJjfxPHXF8tK7p5vBoVpqO9CC21sKoKCSPjRxwqsD44bFMEgHNysXbqqVVUVVu15Cq1w==',\n       FamilyContainer) as documents\n\n\nSELECT\n    title = JSON_VALUE(metadata, '$.title'),\n    authors = JSON_QUERY(metadata, '$.authors'),\n    first_author_name = JSON_VALUE(metadata, '$.authors[0].first')\nFROM\n    OPENROWSET(\n      'CosmosDB',\n      'account=MyCosmosDbAccount;database=covid;region=westus2;key=C0Sm0sDbKey==',\n       Cord19\n    WITH ( metadata varchar(MAX) ) AS docs;\n\t\n\tselect * from cosmosdata_family\n\nSELECT  *\nFROM OPENROWSET( \n       'CosmosDB',\n       'account=synapselink2;database=FamilyDatabase;region=westus2;key=bHuo9KFTpUOW86jF3LtJjfxPHXF8tK7p5vBoVpqO9CC21sKoKCSPjRxwqsD44bFMEgHNysXbqqVVUVVu15Cq1w==',\n       FamilyContainer)   WITH (  id varchar(1000) '$.id',  lastname varchar(1000) '$.LastName',  astate varchar(1000) '$.Address.State'\n        ,   County varchar(1000) '$.Address.County'  ,   City varchar(1000) '$.Address.City'\n         ) as documents\n\t\t \n\t\t \n\t\t \n\t\t select * from cosmosdata_family\n\nSELECT  *\nFROM OPENROWSET( \n       'CosmosDB',\n       'account=synapselink2;database=FamilyDatabase;region=westus2;key=bHuo9KFTpUOW86jF3LtJjfxPHXF8tK7p5vBoVpqO9CC21sKoKCSPjRxwqsD44bFMEgHNysXbqqVVUVVu15Cq1w==',\n       FamilyContainer)   WITH (  id varchar(1000) '$.id',  lastname varchar(1000) '$.LastName',  astate varchar(1000) '$.Address.State'\n        ,   County varchar(1000) '$.Address.County'  ,   City varchar(1000) '$.Address.City'\n         ) as documents\n         ",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "leeds",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}
