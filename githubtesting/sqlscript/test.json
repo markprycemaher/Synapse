@@ -1,0 +1,16 @@
+{
+	"name": "test",
+	"properties": {
+		"content": {
+			"query": "select @@version;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"name": "master",
+				"type": "SqlOnDemand"
+			}
+		},
+		"type": "SqlQuery"
+	}
+}
