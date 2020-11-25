@@ -1,0 +1,44 @@
+{
+	"name": "Notebook 18",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"language_info": {
+				"name": "python"
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"# Write a Spark DataFrame into a Cosmos DB container\n",
+					"# To select a preferred list of regions in a multi-region Cosmos DB account, add .option(\"spark.cosmos.preferredRegions\", \"<Region1>,<Region2>\")\n",
+					"\n",
+					"YOURDATAFRAME.write\\\n",
+					"    .format(\"cosmos.oltp\")\\\n",
+					"    .option(\"spark.synapse.linkedService\", \"CosmosDb1\")\\\n",
+					"    .option(\"spark.cosmos.container\", \"FamilyContainer\")\\\n",
+					"    .option(\"spark.cosmos.write.upsertEnabled\", \"true\")\\\n",
+					"    .mode('append')\\\n",
+					"    .save()"
+				],
+				"execution_count": null
+			}
+		]
+	}
+}
