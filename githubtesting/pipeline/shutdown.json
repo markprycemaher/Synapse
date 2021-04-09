@@ -1,0 +1,29 @@
+{
+	"name": "shutdown",
+	"properties": {
+		"activities": [
+			{
+				"name": "shutdown",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://management.azure.com/subscriptions/5d0ea299-7dff-4878-a18e-10bfc0df8d8e/resourceGroups/mpm/providers/Microsoft.Synapse/workspaces/mpmsynapseworkspace/sqlPools/demopool?api-version=2019-06-01-preview",
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
