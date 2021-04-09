@@ -1,0 +1,33 @@
+{
+	"name": "shutdown1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://management.azure.com/subscriptions/5d0ea299-7dff-4878-a18e-10bfc0df8d8e/resourceGroups/synapsecicd/providers/Microsoft.Synapse/workspaces/synapsecicd/sqlPools/pool1?api-version=2019-06-01-preview",
+					"connectVia": {
+						"referenceName": "AutoResolveIntegrationRuntime",
+						"type": "IntegrationRuntimeReference"
+					},
+					"method": "GET",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
