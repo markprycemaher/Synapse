@@ -15,7 +15,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://management.azure.com/subscriptions/5d0ea299-7dff-4878-a18e-10bfc0df8d8e/resourceGroups/synapsecicd/providers/Microsoft.Synapse/workspaces/synapsecicd/sqlPools/sqlpool3?api-version=2019-06-01-preview",
+					"url": "https://management.azure.com/subscriptions/5d0ea299-7dff-4878-a18e-10bfc0df8d8e/resourceGroups/synapsecicd/providers/Microsoft.Sql/servers/synapse-cicd/databases/sqlpool3?api-version=2020-08-01-preview",
 					"connectVia": {
 						"referenceName": "AutoResolveIntegrationRuntime",
 						"type": "IntegrationRuntimeReference"
@@ -23,7 +23,7 @@
 					"method": "GET",
 					"authentication": {
 						"type": "MSI",
-						"resource": "https://management.azure.com"
+						"resource": "https://management.core.windows.net/"
 					}
 				}
 			}
