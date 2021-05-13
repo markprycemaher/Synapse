@@ -12,9 +12,22 @@
 			"driverCores": 4,
 			"executorMemory": "28g",
 			"executorCores": 4,
-			"numExecutors": 1
+			"numExecutors": 1,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "1",
+				"spark.dynamicAllocation.maxExecutors": "1"
+			}
 		},
 		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
 			"language_info": {
 				"name": "python"
 			},
@@ -30,12 +43,19 @@
 				"sparkVersion": "2.4",
 				"nodeCount": 3,
 				"cores": 4,
-				"memory": 28
-			}
+				"memory": 28,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
 		},
 		"cells": [
 			{
 				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					}
+				},
 				"source": [
 					"%%pyspark\n",
 					"data_path = spark.read.load('abfss://csafs@csatraining.dfs.core.windows.net/loading/FactInternetSales/text/QID16994_20191015_114336_10.txt', format=\"text\")\n",
@@ -43,8 +63,7 @@
 					"\n",
 					""
 				],
-				"attachments": null,
-				"execution_count": 3
+				"execution_count": 1
 			}
 		]
 	}
