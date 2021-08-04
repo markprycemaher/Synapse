@@ -1,0 +1,4 @@
+record id,name,surname,phone,fax,email
+1,mark,smith,+44123456789,+44123456788,mark@email.co.uk
+2,john,jones,+44123456719,+44723456788,john@email.co.uk
+3,jane,potter,+44123456729,+44723456788,jane@email.co.uk

@@ -1,0 +1,26 @@
+1) Create streaming job
+2) Create storage account for source; enable Data lake storage gen2
+2a) create container.. stream
+2b) Create folder, users/2021-08-01
+
+3) add input to stream
+3a) you will see the following fields.
+[record id],[name],surname,phone,fax,email,EventProcessedUtcTime,PartitionId,BlobName,BlobLastModifiedUtcTime
+
+Create table streaming_input
+(
+[record id] bigint,
+[name] varchar(50),
+[surname] varchar(50),
+[fax] varchar(50),
+[email] varchar(50),
+[EventProcessedUtcTime] varchar(50),
+[PartitionId] int,
+[BlobName] varchar(250),
+[BlobLastModifiedUtcTime] varchar(50)
+)
+
+Step up storage:
+path pattern:
+users/{date}
+
