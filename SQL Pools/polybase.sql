@@ -1,18 +1,8 @@
-/*
-
--- drop existing tables
-drop table dbo.customer
-drop table [dbo].[lineitem]
-drop table [dbo].[nation]
-drop table [dbo].[orders]
-drop table [dbo].[part]
-drop table [dbo].[partsupp]
-drop table [dbo].[region]
-drop table [dbo].[supplier]
-*/
+create schema etl
 
 
-create table customer
+
+create EXTERNAL table etl.customer
   ( c_custkey       bigint not null,
     c_name          varchar(25) not null,
     c_address       varchar(40) not null,

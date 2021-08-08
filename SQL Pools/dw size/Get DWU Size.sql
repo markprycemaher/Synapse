@@ -1,3 +1,8 @@
+
+-- Get DW size
+SELECT DATABASEPROPERTYEX (DB_NAME(), 'ServiceObjective' ) as ServiceObjective
+
+
 -- Run against master database
 SELECT  db.name [Database]
 ,	    ds.edition [Edition]
