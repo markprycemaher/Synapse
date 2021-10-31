@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="presentation_a">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items />
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="_links.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>_links.sql</FullPath>
+        </FileNode>
+        <FileNode Name="_Whats a DW.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>_Whats a DW.sql</FullPath>
+        </FileNode>
+        <FileNode Name="0_Bigger_Boat.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>0_Bigger_Boat.sql</FullPath>
+        </FileNode>
+        <FileNode Name="1_table_details.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>1_table_details.sql</FullPath>
+        </FileNode>
+        <FileNode Name="1a_round_robin_distribution.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>1a_round_robin_distribution.sql</FullPath>
+        </FileNode>
+        <FileNode Name="1b_round_robin_test1.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>1b_round_robin_test1.sql</FullPath>
+        </FileNode>
+        <FileNode Name="1c_replicated_table.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>1c_replicated_table.sql</FullPath>
+        </FileNode>
+        <FileNode Name="2_Dirty_Reads_Partitions.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>2_Dirty_Reads_Partitions.sql</FullPath>
+        </FileNode>
+        <FileNode Name="3a_result_set_caching.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>3a_result_set_caching.sql</FullPath>
+        </FileNode>
+        <FileNode Name="3b_result_set_caching-bad.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>3b_result_set_caching-bad.sql</FullPath>
+        </FileNode>
+        <FileNode Name="4_Material_world.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>4_Material_world.sql</FullPath>
+        </FileNode>
+        <FileNode Name="4b_Material_world.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>4b_Material_world.sql</FullPath>
+        </FileNode>
+        <FileNode Name="5_hints.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>5_hints.sql</FullPath>
+        </FileNode>
+        <FileNode Name="6_Zero_code_ingestion.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>6_Zero_code_ingestion.sql</FullPath>
+        </FileNode>
+        <FileNode Name="7_Monitoring.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>7_Monitoring.sql</FullPath>
+        </FileNode>
+        <FileNode Name="7a_memory_consumption.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>7a_memory_consumption.sql</FullPath>
+        </FileNode>
+        <FileNode Name="7b_monitor_tempdb.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>7b_monitor_tempdb.sql</FullPath>
+        </FileNode>
+        <FileNode Name="7c_waits.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>7c_waits.sql</FullPath>
+        </FileNode>
+        <FileNode Name="7d_Workload_Managment.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>7d_Workload_Managment.sql</FullPath>
+        </FileNode>
+        <FileNode Name="7e_perf_tuning.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>7e_perf_tuning.sql</FullPath>
+        </FileNode>
+        <FileNode Name="8_auditing.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>8_auditing.sql</FullPath>
+        </FileNode>
+        <FileNode Name="9_CCI_Gather.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>9_CCI_Gather.sql</FullPath>
+        </FileNode>
+        <FileNode Name="9_CCI_Update.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>9_CCI_Update.sql</FullPath>
+        </FileNode>
+        <FileNode Name="9_sp_stats_Gather.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>9_sp_stats_Gather.sql</FullPath>
+        </FileNode>
+        <FileNode Name="9_sp_Stats_Update.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>9_sp_Stats_Update.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SQLQuery1.sql">
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
+          <FullPath>SQLQuery1.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>
