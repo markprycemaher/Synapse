@@ -60,14 +60,4 @@ order by
 	GROUP BY [tpch].[dbo].[lineitem].[l_returnflag],    
 	[tpch].[dbo].[lineitem].[l_linestatus],      
 	[tpch].[dbo].[lineitem].[l_shipdate]
-	
-	select trim(command)  
-	 , count(*) 
-from sys.dm_pdw_exec_requests
-where total_elapsed_time > 500
-and command  like '%group by%'
-group by trim(command)
-having count(*) > 1
-order by count(*) desc;
-	
 	*/

@@ -13,9 +13,6 @@ select * from sys.dm_pdw_exec_requests where [label]='rsc test 1' order by submi
 
 SELECT name, is_result_set_caching_on FROM sys.databases;
 
-DBCC SHOWRESULTCACHESPACEUSED  
-
-
 SELECT * FROM sys.dm_pdw_request_steps
 WHERE request_id = 'QID6157607'
 ORDER BY step_index;

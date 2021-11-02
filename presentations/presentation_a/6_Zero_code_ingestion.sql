@@ -35,36 +35,25 @@ FIELD_TERMINATOR = N',', STRING_DELIMITER = N'"',
 USE_TYPE_DEFAULT = True, First_Row = 2 ))
 GO
 
-CREATE EXTERNAL FILE FORMAT parquet3  
-WITH (  
-    FORMAT_TYPE = PARQUET 
-	, 
-);     
-
 create master key;
 
 CREATE DATABASE SCOPED CREDENTIAL sak
 WITH IDENTITY = 'sak'
      , SECRET = 'shhhhh.....' 
 
-
-CREATE DATABASE SCOPED CREDENTIAL demo2
-WITH IDENTITY = 'demo2'
-     , SECRET = 'phfYN9K9q9JpJeAit4CXvu+BGX8EJGArvgeL0AOW0z2oeuJw0/LgiLQIhzn+jwITEs5TXvhDCQxxwJnSFsl3+g==' 
-
 CREATE EXTERNAL DATA SOURCE [AzureDataLakeStore] WITH 
 (LOCATION = N'wasbs://streaming@.....blob.core.windows.net',
 CREDENTIAL = [sak])
 GO
-drop EXTERNAL TABLE cust125_test
-CREATE EXTERNAL TABLE cust125_test
+drop EXTERNAL TABLE cust119_test
+CREATE EXTERNAL TABLE cust119_test
 WITH (
     LOCATION = 'cluster1/logs/2021-10-30',
     DATA_SOURCE = [AzureDataLakeStore],  
-    FILE_FORMAT = [csv]
+    FILE_FORMAT = [CSV2]
 )  
 AS
-SELECT top 10000 * from [dbo].[customer]
+SELECT top 1000000 * from [dbo].[customer]
 print getdate()
 */
 -- CUSTOMER, dwu1000 (2 nodes smallrc)
