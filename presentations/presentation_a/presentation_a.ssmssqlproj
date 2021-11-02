@@ -2,20 +2,7 @@
 <SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="presentation_a">
   <Items>
     <LogicalFolder Name="Connections" Type="2" Sorted="true">
-      <Items>
-        <ConnectionNode Name="tpc-test.sql.azuresynapse.net:sqladminuser">
-          <Created>2021-11-02T18:48:27.17939+00:00</Created>
-          <Type>SQL</Type>
-          <Server>tpc-test.sql.azuresynapse.net</Server>
-          <UserName>sqladminuser</UserName>
-          <Authentication>SQL</Authentication>
-          <InitialDB />
-          <LoginTimeout>30</LoginTimeout>
-          <ExecutionTimeout>0</ExecutionTimeout>
-          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
-          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
-        </ConnectionNode>
-      </Items>
+      <Items />
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
@@ -61,12 +48,6 @@
           <AssociatedConnUserName />
           <FullPath>1c_replicated_table.sql</FullPath>
         </FileNode>
-        <FileNode Name="1d_table_advisor.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:tpc-test.sql.azuresynapse.net:False:sqladminuser</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>tpc-test.sql.azuresynapse.net</AssociatedConnSrvName>
-          <AssociatedConnUserName>sqladminuser</AssociatedConnUserName>
-          <FullPath>1d_table_advisor.sql</FullPath>
-        </FileNode>
         <FileNode Name="2_Dirty_Reads_Partitions.sql">
           <AssociatedConnectionMoniker />
           <AssociatedConnSrvName />
@@ -74,9 +55,9 @@
           <FullPath>2_Dirty_Reads_Partitions.sql</FullPath>
         </FileNode>
         <FileNode Name="3a_result_set_caching.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:tpc-test.sql.azuresynapse.net:False:sqladminuser</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>tpc-test.sql.azuresynapse.net</AssociatedConnSrvName>
-          <AssociatedConnUserName>sqladminuser</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>3a_result_set_caching.sql</FullPath>
         </FileNode>
         <FileNode Name="3b_result_set_caching-bad.sql">
@@ -104,9 +85,9 @@
           <FullPath>5_hints.sql</FullPath>
         </FileNode>
         <FileNode Name="6_Zero_code_ingestion.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:tpc-test.sql.azuresynapse.net:False:sqladminuser</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>tpc-test.sql.azuresynapse.net</AssociatedConnSrvName>
-          <AssociatedConnUserName>sqladminuser</AssociatedConnUserName>
+          <AssociatedConnectionMoniker />
+          <AssociatedConnSrvName />
+          <AssociatedConnUserName />
           <FullPath>6_Zero_code_ingestion.sql</FullPath>
         </FileNode>
         <FileNode Name="7_Monitoring.sql">
@@ -144,18 +125,6 @@
           <AssociatedConnSrvName />
           <AssociatedConnUserName />
           <FullPath>7e_perf_tuning.sql</FullPath>
-        </FileNode>
-        <FileNode Name="7f_Monitor_Users_and_Resource_Groups.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:tpc-test.sql.azuresynapse.net:False:sqladminuser</AssociatedConnectionMoniker>
-          <AssociatedConnSrvName>tpc-test.sql.azuresynapse.net</AssociatedConnSrvName>
-          <AssociatedConnUserName>sqladminuser</AssociatedConnUserName>
-          <FullPath>7f_Monitor_Users_and_Resource_Groups.sql</FullPath>
-        </FileNode>
-        <FileNode Name="7g_useful.sql">
-          <AssociatedConnectionMoniker />
-          <AssociatedConnSrvName />
-          <AssociatedConnUserName />
-          <FullPath>7g_useful.sql</FullPath>
         </FileNode>
         <FileNode Name="8_auditing.sql">
           <AssociatedConnectionMoniker />
