@@ -50,7 +50,7 @@ WITH IDENTITY = 'sak'
 
 CREATE DATABASE SCOPED CREDENTIAL demo2
 WITH IDENTITY = 'demo2'
-     , SECRET = 'phfYN9K9q9JpJeAit4CXvu+BGX8EJGArvgeL0AOW0z2oeuJw0/LgiLQIhzn+jwITEs5TXvhDCQxxwJnSFsl3+g==' 
+     , SECRET = 'Shh!' 
 
 CREATE EXTERNAL DATA SOURCE [AzureDataLakeStore] WITH 
 (LOCATION = N'wasbs://streaming@.....blob.core.windows.net',
